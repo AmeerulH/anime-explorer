@@ -3,6 +3,7 @@ import type { ChangeEvent } from "react";
 import AnimeCard from "../components/AnimeCard";
 import GenreDropdown from "../components/GenreDropdown";
 import ErrorMessage from "../components/ErrorMessage";
+import Loading from "../components/Loading";
 import useAnimeList from "../hooks/useAnimeList";
 import useAnimeStore from "../store/useAnimeStore";
 
@@ -63,11 +64,13 @@ const Home = () => {
             disabled={!hasNextPage || isLoading}
             className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
           >
-            {isLoading
-              ? "Loading..."
-              : hasNextPage
-              ? "Load More"
-              : "No More Results"}
+            {isLoading ? (
+              <Loading label="Loading..." />
+            ) : hasNextPage ? (
+              "Load More"
+            ) : (
+              "No More Results"
+            )}
           </button>
         </div>
       )}

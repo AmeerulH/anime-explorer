@@ -17,7 +17,7 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
       to={`/anime/${anime.mal_id}`}
       className="group block overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md"
     >
-      <div className="aspect-[3/4] w-full bg-slate-100">
+      <div className="aspect-3/4 w-full bg-slate-100">
         {imageSrc ? (
           <img
             src={imageSrc}
@@ -36,7 +36,8 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
           {title}
         </h3>
         <p className="text-xs font-medium text-amber-600">
-          Score: {typeof anime.score === "number" ? anime.score.toFixed(1) : "N/A"}
+          Score:{" "}
+          {typeof anime.score === "number" ? anime.score.toFixed(1) : "N/A"}
         </p>
       </div>
     </Link>
@@ -44,4 +45,3 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
 };
 
 export default AnimeCard;
-

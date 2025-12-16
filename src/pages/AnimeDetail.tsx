@@ -2,7 +2,9 @@ import { useParams } from "react-router-dom";
 import useAnimeStore from "../store/useAnimeStore";
 import useAnimeDetail from "../hooks/useAnimeDetail";
 import FavoriteButton from "../components/FavoriteButton";
-import ErrorMessage from "../components/ErrorMessage";
+import Pill from "../components/Pill";
+import NotFoundAnime from "../components/NotFoundInline";
+import Loading from "../components/Loading";
 
 const AnimeDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,15 +27,21 @@ const AnimeDetail = () => {
   };
 
   if (isLoading) {
-    return <p className="text-sm text-slate-600">Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {
-    return <ErrorMessage message={error} />;
+    return (
+      <NotFoundAnime
+        title="This anime slipped through the cracks."
+        message="Either the ID is wrong or the Grand Line ate it. Try again!"
+        error={error}
+      />
+    );
   }
 
   if (!anime) {
-    return <p className="text-sm text-slate-600">Anime not found.</p>;
+    return <NotFoundAnime />;
   }
 
   const imageSrc =
@@ -73,34 +81,12 @@ const AnimeDetail = () => {
           </div>
 
           <div className="flex flex-wrap gap-3 text-sm text-slate-700">
-            <span className="rounded bg-slate-100 px-2 py-1">
-              Score: {anime.score ?? "N/A"}
-            </span>
-            {anime.year ? (
-              <span className="rounded bg-slate-100 px-2 py-1">
-                Year: {anime.year}
-              </span>
-            ) : null}
-            {anime.season ? (
-              <span className="rounded bg-slate-100 px-2 py-1">
-                Season: {anime.season}
-              </span>
-            ) : null}
-            {anime.episodes ? (
-              <span className="rounded bg-slate-100 px-2 py-1">
-                Episodes: {anime.episodes}
-              </span>
-            ) : null}
-            {anime.type ? (
-              <span className="rounded bg-slate-100 px-2 py-1">
-                Type: {anime.type}
-              </span>
-            ) : null}
-            {anime.rating ? (
-              <span className="rounded bg-slate-100 px-2 py-1">
-                Rating: {anime.rating}
-              </span>
-            ) : null}
+            <Pill>Score: {anime.score ?? "N/A"}</Pill>
+            {anime.year ? <Pill>Year: {anime.year}</Pill> : null}
+            {anime.season ? <Pill>Season: {anime.season}</Pill> : null}
+            {anime.episodes ? <Pill>Episodes: {anime.episodes}</Pill> : null}
+            {anime.type ? <Pill>Type: {anime.type}</Pill> : null}
+            {anime.rating ? <Pill>Rating: {anime.rating}</Pill> : null}
           </div>
 
           {anime.genres?.length ? (
@@ -108,12 +94,9 @@ const AnimeDetail = () => {
               <h3 className="text-sm font-semibold text-slate-800">Genres</h3>
               <div className="flex flex-wrap gap-2">
                 {anime.genres.map((genre) => (
-                  <span
-                    key={genre.mal_id}
-                    className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-800"
-                  >
+                  <Pill key={genre.mal_id} size="xs" roundedFull>
                     {genre.name}
-                  </span>
+                  </Pill>
                 ))}
               </div>
             </div>

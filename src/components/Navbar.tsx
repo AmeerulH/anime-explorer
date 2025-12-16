@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import clsx from "clsx";
 import useAnimeStore from "../store/useAnimeStore";
 
 const linkBase =
@@ -10,12 +11,17 @@ const Navbar = () => {
   return (
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <div className="text-lg font-semibold text-slate-900">Anime Explorer</div>
+        <div className="text-lg font-semibold text-slate-900">
+          Anime Explorer
+        </div>
         <nav className="flex items-center gap-2">
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `${linkBase} ${isActive ? "bg-slate-100 text-slate-900" : "text-slate-700"}`
+              clsx(
+                linkBase,
+                isActive ? "bg-slate-100 text-slate-900" : "text-slate-700"
+              )
             }
           >
             Home
@@ -23,7 +29,10 @@ const Navbar = () => {
           <NavLink
             to="/favorites"
             className={({ isActive }) =>
-              `${linkBase} ${isActive ? "bg-slate-100 text-slate-900" : "text-slate-700"}`
+              clsx(
+                linkBase,
+                isActive ? "bg-slate-100 text-slate-900" : "text-slate-700"
+              )
             }
           >
             <span className="flex items-center gap-2">
@@ -40,4 +49,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
