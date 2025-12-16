@@ -3,8 +3,8 @@ import useAnimeStore from "../store/useAnimeStore";
 import useAnimeDetail from "../hooks/useAnimeDetail";
 import FavoriteButton from "../components/FavoriteButton";
 import Pill from "../components/Pill";
-import NotFoundAnime from "../components/NotFoundInline";
 import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 
 const AnimeDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,16 +32,26 @@ const AnimeDetail = () => {
 
   if (error) {
     return (
-      <NotFoundAnime
+      <ErrorMessage
+        variant="illustrated"
         title="This anime slipped through the cracks."
-        message="Either the ID is wrong or the Grand Line ate it. Try again!"
-        error={error}
+        message={
+          error || "Either the ID is wrong or the Grand Line ate it. Try again!"
+        }
+        showActions
       />
     );
   }
 
   if (!anime) {
-    return <NotFoundAnime />;
+    return (
+      <ErrorMessage
+        variant="illustrated"
+        title="This anime got lost in the multiverse."
+        message="Double-check the ID or head back to browse more anime."
+        showActions
+      />
+    );
   }
 
   const imageSrc =
@@ -71,10 +81,14 @@ const AnimeDetail = () => {
 
         <div className="flex-1 space-y-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h1 className="text-2xl font-semibold">{anime.title}</h1>
+            <div className="min-w-0 max-w-3xl">
+              <h1 className="text-2xl font-semibold leading-snug line-clamp-2 wrap-break-word">
+                {anime.title}
+              </h1>
               {anime.title_english && anime.title_english !== anime.title && (
-                <p className="text-sm text-slate-600">{anime.title_english}</p>
+                <p className="text-sm text-slate-600 line-clamp-1 wrap-break-word">
+                  {anime.title_english}
+                </p>
               )}
             </div>
             <FavoriteButton isFavorite={isFav} onToggle={toggleFavorite} />

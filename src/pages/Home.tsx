@@ -1,24 +1,37 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
+import debounce from "lodash.debounce";
 import AnimeCard from "../components/AnimeCard";
 import GenreDropdown from "../components/GenreDropdown";
 import ErrorMessage from "../components/ErrorMessage";
 import Loading from "../components/Loading";
+import SearchNotFound from "../components/SearchNotFound";
 import useAnimeList from "../hooks/useAnimeList";
 import useAnimeStore from "../store/useAnimeStore";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const selectedGenreId = useAnimeStore((state) => state.selectedGenreId);
   const setSelectedGenreId = useAnimeStore((state) => state.setSelectedGenreId);
   const { animeList, isLoading, error, hasNextPage, loadMore } = useAnimeList(
-    searchQuery,
+    debouncedSearch,
     selectedGenreId
   );
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
   };
+
+  const debouncedSetter = useMemo(
+    () => debounce((value: string) => setDebouncedSearch(value.trim()), 350),
+    []
+  );
+
+  useEffect(() => {
+    debouncedSetter(searchQuery);
+    return () => debouncedSetter.cancel();
+  }, [searchQuery, debouncedSetter]);
 
   return (
     <div className="space-y-6">
@@ -44,7 +57,13 @@ const Home = () => {
         </div>
       </div>
 
-      {error && <ErrorMessage message={error} />}
+      {error && (
+        <ErrorMessage
+          variant="illustrated"
+          title="Something went wrong while fetching anime."
+          message={error || "Please try again or adjust your search."}
+        />
+      )}
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {animeList.map((anime) => (
@@ -53,7 +72,7 @@ const Home = () => {
       </div>
 
       {!isLoading && animeList.length === 0 && !error && (
-        <p className="text-sm text-slate-600">No anime found.</p>
+        <SearchNotFound query={debouncedSearch} />
       )}
 
       {(animeList.length > 0 || isLoading) && (
