@@ -1,4 +1,4 @@
-import useAnimeGenres from "../hooks/useAnimeGenres";
+import { useAnimeGenres } from "@/hooks";
 import { IoChevronDown } from "react-icons/io5";
 
 interface GenreDropdownProps {

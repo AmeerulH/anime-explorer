@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
 import debounce from "lodash.debounce";
-import AnimeCard from "../components/AnimeCard";
-import GenreDropdown from "../components/GenreDropdown";
-import ErrorMessage from "../components/ErrorMessage";
-import Loading from "../components/Loading";
-import SearchNotFound from "../components/SearchNotFound";
-import useAnimeList from "../hooks/useAnimeList";
-import useAnimeStore from "../store/useAnimeStore";
+import {
+  AnimeCard,
+  GenreDropdown,
+  ErrorMessage,
+  Loading,
+  SearchNotFound,
+} from "@/components";
+import { useAnimeList } from "@/hooks";
+import { useAnimeStore } from "@/store";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");

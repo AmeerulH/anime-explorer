@@ -1,6 +1,6 @@
-import { NavLink } from "react-router-dom";
 import clsx from "clsx";
-import useAnimeStore from "../store/useAnimeStore";
+import { NavLink } from "react-router-dom";
+import { useAnimeStore } from "@/store";
 
 const linkBase =
   "text-sm font-medium px-3 py-2 rounded-md transition hover:bg-slate-100";

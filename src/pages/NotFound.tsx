@@ -3,13 +3,13 @@ import clsx from "clsx";
 
 const NotFound = () => {
   return (
-    <div className="flex min-h-[80vh] items-center justify-center bg-linear-to-b from-slate-50 to-slate-100 px-4 py-12">
+    <div className="flex min-h-[80vh] items-center justify-centerpx-4 py-12">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
-        <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+        <div className="overflow-hidden rounded-2xl">
           <img
             src="/luffy_disappointed.png"
             alt="Luffy disappointed"
-            className="h-full w-full max-h-130 object-cover"
+            className="h-full w-full max-h-100 object-cover"
           />
         </div>
         <div className="space-y-3">

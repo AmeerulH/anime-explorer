@@ -1,10 +1,7 @@
 import { useParams } from "react-router-dom";
-import useAnimeStore from "../store/useAnimeStore";
-import useAnimeDetail from "../hooks/useAnimeDetail";
-import FavoriteButton from "../components/FavoriteButton";
-import Pill from "../components/Pill";
-import Loading from "../components/Loading";
-import ErrorMessage from "../components/ErrorMessage";
+import { useAnimeStore } from "@/store";
+import { useAnimeDetail } from "@/hooks";
+import { FavoriteButton, Pill, Loading, ErrorMessage } from "@/components";
 
 const AnimeDetail = () => {
   const { id } = useParams<{ id: string }>();
