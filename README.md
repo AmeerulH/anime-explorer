@@ -11,6 +11,10 @@ npm run dev
 
 Then open the printed localhost URL (default http://localhost:5173).
 
+## Live demo
+
+- Production (Vercel): https://anime-explorer-delta.vercel.app/
+
 ### Scripts
 
 - `npm run dev` – start Vite dev server
@@ -18,6 +22,14 @@ Then open the printed localhost URL (default http://localhost:5173).
 - `npm run preview` – preview the production build
 - `npm run test` – run Vitest (jsdom)
 - `npm run test:coverage` – if configured, run coverage via Vitest
+
+## Thought process
+
+- Start with the API: I first wired simple fetch calls to the Jikan endpoints to prove data flow, then built the Home page list around that data.
+- Add depth with details: After listing, I created the detail page to validate navigation and richer data rendering.
+- State with familiarity: I chose Zustand for storing/persisting data because I use it at work and it keeps the global state small and predictable.
+- Hooks for data flow: Custom hooks (`useAnimeList`, `useAnimeDetail`, `useAnimeGenres`) encapsulate fetch logic, keep components lean, encourage reuse, make testing easier, and isolate side effects from UI concerns—a pattern I also follow at work.
+- Refinements: Barrel imports for cleaner paths, path aliases for clarity, then layered on tests (store, API, components, pages) to lock behavior.
 
 ## Tech stack and architecture decisions
 
