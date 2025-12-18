@@ -1,11 +1,12 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 
 vi.mock("@/store", () => ({
-  useAnimeStore: (selector: (state: any) => any) =>
-    selector({ favorites: [{ mal_id: 1 }] }),
+  useAnimeStore: (
+    selector: (state: { favorites: { mal_id: number }[] }) => unknown
+  ) => selector({ favorites: [{ mal_id: 1 }] }),
 }));
 
 describe("Navbar", () => {
@@ -20,4 +21,3 @@ describe("Navbar", () => {
     expect(screen.getByText("1")).toBeInTheDocument();
   });
 });
-
