@@ -54,3 +54,10 @@ export const createAnimeMock = (overrides: Partial<Anime> = {}): Anime => ({
   ...sampleAnime,
   ...overrides,
 });
+
+export const sampleGenre = {
+  mal_id: 10,
+  name: "Adventure",
+  url: "",
+  count: 0,
+};

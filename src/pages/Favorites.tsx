@@ -1,5 +1,5 @@
-import useAnimeStore from "../store/useAnimeStore";
-import AnimeCard from "../components/AnimeCard";
+import { useAnimeStore } from "@/store";
+import { AnimeCard } from "@/components";
 
 const Favorites = () => {
   const favorites = useAnimeStore((state) => state.favorites);
