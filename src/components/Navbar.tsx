@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useAnimeStore } from "@/store";
 
 const linkBase =
@@ -11,9 +11,18 @@ const Navbar = () => {
   return (
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-        <div className="text-lg font-semibold text-slate-900">
-          Anime Explorer
-        </div>
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-lg font-semibold text-slate-900 hover:text-slate-700"
+          aria-label="Go to Anime Explorer home"
+        >
+          <img
+            src="/animedotjs.svg"
+            alt="Anime Explorer logo"
+            className="h-7 w-7 filter brightness-0"
+          />
+          <span>Anime Explorer</span>
+        </Link>
         <nav className="flex items-center gap-2">
           <NavLink
             to="/"
