@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
 import debounce from "lodash.debounce";
+import clsx from "clsx";
 import {
   AnimeCard,
   GenreDropdown,
@@ -14,11 +15,13 @@ import { useAnimeStore } from "@/store";
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [sfwOnly, setSfwOnly] = useState(true);
   const selectedGenreId = useAnimeStore((state) => state.selectedGenreId);
   const setSelectedGenreId = useAnimeStore((state) => state.setSelectedGenreId);
   const { animeList, isLoading, error, hasNextPage, loadMore } = useAnimeList(
     debouncedSearch,
-    selectedGenreId
+    selectedGenreId,
+    sfwOnly
   );
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +59,19 @@ const Home = () => {
             selectedId={selectedGenreId}
             onSelect={setSelectedGenreId}
           />
+          <button
+            type="button"
+            onClick={() => setSfwOnly((prev) => !prev)}
+            className={clsx(
+              "inline-flex items-center justify-center rounded-md border px-3 py-2 text-sm font-semibold shadow-sm transition",
+              sfwOnly
+                ? "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+            )}
+            aria-pressed={sfwOnly}
+          >
+            {sfwOnly ? "SFW On" : "SFW Off"}
+          </button>
         </div>
       </div>
 

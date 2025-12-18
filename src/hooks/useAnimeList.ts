@@ -12,7 +12,8 @@ interface UseAnimeListResult {
 
 const useAnimeList = (
   searchQuery: string,
-  genreId: number | null
+  genreId: number | null,
+  sfw: boolean
 ): UseAnimeListResult => {
   const [animeList, setAnimeList] = useState<Anime[]>([]);
   const [page, setPage] = useState(1);
@@ -20,11 +21,11 @@ const useAnimeList = (
   const [error, setError] = useState<string | null>(null);
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  // reset when search or genre changes
+  // reset when search, genre, or sfw filter changes
   useEffect(() => {
     setAnimeList([]);
     setPage(1);
-  }, [searchQuery, genreId]);
+  }, [searchQuery, genreId, sfw]);
 
   useEffect(() => {
     let cancelled = false;
@@ -36,7 +37,8 @@ const useAnimeList = (
         const response = await getAnimeList(
           page,
           searchQuery || undefined,
-          genreId ?? undefined
+          genreId ?? undefined,
+          sfw
         );
         if (cancelled) return;
 
@@ -61,7 +63,7 @@ const useAnimeList = (
     return () => {
       cancelled = true;
     };
-  }, [page, searchQuery, genreId]);
+  }, [page, searchQuery, genreId, sfw]);
 
   const loadMore = () => {
     if (isLoading || !hasNextPage) return;

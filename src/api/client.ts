@@ -26,7 +26,8 @@ const handleJikanError = (error: unknown): Error => {
 export const getAnimeList = async (
   page = 1,
   searchQuery?: string,
-  genreId?: number
+  genreId?: number,
+  sfw?: boolean
 ): Promise<JikanResponse<Anime[]>> => {
   try {
     const response = await client.get<JikanResponse<Anime[]>>("/anime", {
@@ -34,6 +35,7 @@ export const getAnimeList = async (
         page,
         q: searchQuery || undefined,
         genres: genreId || undefined,
+        sfw: sfw ? true : undefined,
         order_by: "title",
         sort: "asc",
       },
