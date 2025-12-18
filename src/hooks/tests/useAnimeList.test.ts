@@ -29,7 +29,7 @@ describe("useAnimeList", () => {
       data: { data: [], pagination: { has_next_page: false } },
     });
 
-    const { result } = renderHook(() => useAnimeList("naruto", 5));
+    const { result } = renderHook(() => useAnimeList("naruto", 5, true));
 
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(mockGet).toHaveBeenCalled();
@@ -41,7 +41,7 @@ describe("useAnimeList", () => {
       message: "Boom",
     });
 
-    const { result } = renderHook(() => useAnimeList("naruto", null));
+    const { result } = renderHook(() => useAnimeList("naruto", null, true));
     await waitFor(() => expect(result.current.isLoading).toBe(false));
     expect(result.current.error).toBe("Boom");
   });
@@ -51,7 +51,7 @@ describe("useAnimeList", () => {
       data: { data: [{ mal_id: 1 }], pagination: { has_next_page: true } },
     });
 
-    const { result } = renderHook(() => useAnimeList("naruto", null));
+    const { result } = renderHook(() => useAnimeList("naruto", null, true));
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
     mockGet.mockResolvedValueOnce({
@@ -71,7 +71,7 @@ describe("useAnimeList", () => {
       data: { data: [{ mal_id: 1 }], pagination: { has_next_page: false } },
     });
 
-    const { result } = renderHook(() => useAnimeList("naruto", null));
+    const { result } = renderHook(() => useAnimeList("naruto", null, true));
     await waitFor(() => expect(result.current.isLoading).toBe(false));
 
     mockGet.mockClear();
