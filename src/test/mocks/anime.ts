@@ -1,0 +1,56 @@
+import type { Anime } from "@/types";
+
+export const sampleAnime: Anime = {
+  mal_id: 1,
+  url: "",
+  images: {
+    jpg: { image_url: "", small_image_url: "", large_image_url: "" },
+    webp: { image_url: "", small_image_url: "", large_image_url: "" },
+  },
+  trailer: { youtube_id: "", url: "", embed_url: "" },
+  approved: true,
+  titles: [],
+  title: "Sample",
+  title_english: "",
+  title_japanese: "",
+  title_synonyms: [],
+  type: "TV",
+  source: "",
+  episodes: 12,
+  status: "Finished Airing",
+  airing: false,
+  aired: {
+    from: "",
+    to: "",
+    prop: {
+      from: { day: 0, month: 0, year: 0 },
+      to: { day: 0, month: 0, year: 0 },
+      string: "",
+    },
+  },
+  duration: "",
+  rating: "",
+  score: 7.5,
+  scored_by: 0,
+  rank: 0,
+  popularity: 0,
+  members: 0,
+  favorites: 0,
+  synopsis: "",
+  background: "",
+  season: "",
+  year: 2024,
+  broadcast: { day: "", time: "", timezone: "", string: "" },
+  producers: [],
+  licensors: [],
+  studios: [],
+  genres: [],
+  explicit_genres: [],
+  themes: [],
+  demographics: [],
+};
+
+export const createAnimeMock = (overrides: Partial<Anime> = {}): Anime => ({
+  ...sampleAnime,
+  ...overrides,
+});
